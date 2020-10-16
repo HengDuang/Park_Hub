@@ -1,0 +1,22 @@
+version: '3.2'
+
+services:
+   db:
+      image: mysql:8.0
+      container_name: Parkmysql
+      restart: always
+      ports:
+       - '8001:80'
+      environment:
+        MYSQL_ROOT_PASSWORD: CE2006
+
+   app:
+      depends_on:
+       - db
+      image: phpmyadmin/phpmyadmin
+      container_name: Parkphpmyadmin
+      restart: always
+      ports:
+       - '8002:80'
+      environment:
+        PMA_HOST: db    
