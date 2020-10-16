@@ -9,24 +9,48 @@
 <body>
     <div id="myData"></div>
     <script>
-        fetch('people.json')
+        fetch('https://api.data.gov.sg/v1/environment/air-temperature')
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                appendData(data);
+                console.log(data);
+                var mainContainer = document.getElementById("myData");
+                for (var i = 0; i < data.metadata.stations.length; i++) {
+                    var div = document.createElement("div");
+                    var div2= document.createElement("div2");
+
+                    div.innerHTML = "Location: " + data.metadata.stations[i].name;
+                    div2.innerHTML =" Temperature: " + data.items[0].readings[i].value;
+
+                    mainContainer.appendChild(div);
+                    mainContainer.appendChild(div2);
+                    // var stations = data.metadata.stations[i];
+                    // var reading = data.items[0].readings[i];
+                    // console.log(stations.name);
+                    // console.log(reading.value);
+                }
+                var div3 = document.createElement("div3");
+                div3.innerHTML = "Timestamp: " + data.items[0].timestamp;
+                mainContainer.appendChild(div3);
             })
             .catch(function (err) {
                 console.log('error: ' + err);
             });
-        function appendData(data) {
-            var mainContainer = document.getElementById("myData");
-            for (var i = 0; i < data.length; i++) {
-                var div = document.createElement("div");
-                div.innerHTML = 'Name: ' + data[i].firstName + ' ' + data[i].lastName;
-                mainContainer.appendChild(div);
-            }
-        }
+        //var jsonData = JSON.parse(data);
+
+        // for (var i = 0; i < data.metadata.stations.length; i++) {
+        //     var stations = data.metadata.stations[i];
+        //     console.log(stations.id);
+        // }
+        // function appendData(data) {
+        //     var mainContainer = document.getElementById("myData");
+        //     for (var i = 0; i < data.length; i++) {
+        //         var div = document.createElement("div");
+        //         div.innerHTML = 'Name: ' + data[i].firstName + ' ' + data[i].lastName;
+        //         mainContainer.appendChild(div);
+        //     }
+        // }
     </script>
 </body>
 </html>
