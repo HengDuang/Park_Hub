@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jsonTest</title>
+</head>
+<body>
+    <div id="myData"></div>
+    <script>
+
+        async function fetchDataFromApi(){
+            const response = await fetch('https://api.data.gov.sg/v1/environment/air-temperature');
+            const data = await response.json();
+            return data;
+        }
+
+        fetchDataFromApi().then(data => {
+            console.log(data);
+            var mainContainer = document.getElementById("myData");
+            var div = document.createElement("div");
+            div.innerHTML = "Timestamp: " + data.items[0].timestamp;
+            mainContainer.appendChild(div);
+
+            for (var i = 0; i < data.metadata.stations.length; i++) {
+                var div2 = document.createElement("div2");
+                var div3= document.createElement("div3");
+
+                div2.innerHTML = "<p>Location: " + data.metadata.stations[i].name;
+                div3.innerHTML =" <p>Temperature: " + data.items[0].readings[i].value;
+
+                mainContainer.appendChild(div2);
+                mainContainer.appendChild(div3);
+                // var stations = data.metadata.stations[i];
+                // var reading = data.items[0].readings[i];
+                // console.log(stations.name);
+                // console.log(reading.value);
+            }
+            
+        })        
+        
+    </script>
+</body>
+</html>
