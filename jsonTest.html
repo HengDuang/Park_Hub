@@ -7,50 +7,36 @@
     <title>jsonTest</title>
 </head>
 <body>
-    <div id="myData"></div>
+    <div id="CurrentTiming"></div>
+    <div id="TimeStamp"></div>
+    <div id="TimeStamp2"></div>
+    <div id="OverallWeather"></div>
+    <div id="OverallPSI"></div>
+    <div id="NorthData"></div>
+    <div id="NorthPSI"></div>
+    <div id="EastData"></div>
+    <div id="EastPSI"></div>
+    <div id="WestData"></div>
+    <div id="WestPSI"></div>
+    <div id="SouthData"></div>
+    <div id="SouthPSI"></div>
+    <div id="CentralData"></div>
+    <div id="CentralPSI"></div>
+
+
     <script>
-        fetch('https://api.data.gov.sg/v1/environment/air-temperature')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                console.log(data);
-                var mainContainer = document.getElementById("myData");
-                for (var i = 0; i < data.metadata.stations.length; i++) {
-                    var div = document.createElement("div");
-                    var div2= document.createElement("div2");
+        var myVar = setInterval(myTimer, 1000);
 
-                    div.innerHTML = "Location: " + data.metadata.stations[i].name;
-                    div2.innerHTML =" Temperature: " + data.items[0].readings[i].value;
-
-                    mainContainer.appendChild(div);
-                    mainContainer.appendChild(div2);
-                    // var stations = data.metadata.stations[i];
-                    // var reading = data.items[0].readings[i];
-                    // console.log(stations.name);
-                    // console.log(reading.value);
-                }
-                var div3 = document.createElement("div3");
-                div3.innerHTML = "Timestamp: " + data.items[0].timestamp;
-                mainContainer.appendChild(div3);
-            })
-            .catch(function (err) {
-                console.log('error: ' + err);
-            });
-        //var jsonData = JSON.parse(data);
-
-        // for (var i = 0; i < data.metadata.stations.length; i++) {
-        //     var stations = data.metadata.stations[i];
-        //     console.log(stations.id);
-        // }
-        // function appendData(data) {
-        //     var mainContainer = document.getElementById("myData");
-        //     for (var i = 0; i < data.length; i++) {
-        //         var div = document.createElement("div");
-        //         div.innerHTML = 'Name: ' + data[i].firstName + ' ' + data[i].lastName;
-        //         mainContainer.appendChild(div);
-        //     }
-        // }
+        function myTimer() {
+        var d = new Date();
+        document.getElementById("CurrentTiming").innerHTML = d.toLocaleTimeString();
+        }
     </script>
+    <script src=regionalPSIReading.js></script>
+    <script src=regionalWeatherReading.js></script>
+    <script>regionalWeatherReading()</script>
+    <script>regionalPSIReading()</script>
+    <script> setInterval(regionalPSIReading, 600000);</script>
+    <script> setInterval(regionalWeatherReading, 600000);</script>
 </body>
 </html>

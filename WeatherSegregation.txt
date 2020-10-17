@@ -1,0 +1,29 @@
+North:
+Woodlands Road - ID S100
+Woodlands Avenue 9 - IDS104
+
+West:
+Nanyang Avenue - ID S44 
+Clementi Road - ID S50
+Tuas South Avenue 3 - ID S115
+West Coast Highway - ID S116
+Banyan Road - ID S117
+Old Chua Chu Kang Road - ID S121
+
+
+East:
+Upper Changi Road - ID S24
+Pulau Ubin - ID S106
+East Coast Parkway - ID S107
+
+
+Central:
+Kim Chuan Road - ID S43
+Ang Mo Kio - ID S109
+Scotts Road - ID S111
+
+
+South:
+Sentosa - ID S60
+Marina Gardens Drive - ID S108
+
