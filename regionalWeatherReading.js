@@ -1,3 +1,6 @@
+
+var globalNorthTemp = 0, globalEastTemp = 0, globalWestTemp = 0, globalSouthTemp = 0, globalCentralTemp = 0;
+
 function regionalWeatherReading(){
     
     fetch('https://api.data.gov.sg/v1/environment/air-temperature')
@@ -5,6 +8,8 @@ function regionalWeatherReading(){
                 return response.json();
             })
             .then(function (data) {
+                console.log(data);
+                
                 document.getElementById("TimeStamp").innerHTML = "Timestamp: " + data.items[0].timestamp;
 
                 var northSideCount = 0, westSideCount = 0, eastSideCount = 0, southSideCount = 0, centralSideCount = 0;
@@ -34,20 +39,56 @@ function regionalWeatherReading(){
                         centralSide += data.items[0].readings[i].value;
                     }
                 }  
-                
+
                 northTemp = northSide/northSideCount;
+                if(northTemp != NaN){
+                    globalNorthTemp = northTemp;
+                }
+                else{
+                    northTemp = globalNorthTemp;
+                }
+
                 eastTemp = eastSide/eastSideCount;
+                if(eastTemp != NaN){
+                    globalNorthTemp = eastTemp;
+                }
+                else{
+                    eastTemp = globalEastTemp;
+                }
+
                 westTemp = westSide/westSideCount;
+                if(westTemp != NaN){
+                    globalWestTemp = westTemp;
+                }
+                else{
+                    westTemp = globalWestTemp;
+                }
+
                 southTemp = southSide/southSideCount;
+                if(southTemp != NaN){
+                    globalSouthTemp = southTemp;
+                }
+                else{
+                    southTemp = globalSouthTemp;
+                }
+
                 centralTemp = centralSide/centralSideCount;
-                overallTemp = (northTemp+eastTemp+westTemp+southTemp+centralTemp)/5;
+                if(centralTemp != NaN){
+                    globalCentralTemp = centralTemp;
+                }
+                else{
+                    centralTemp = globalCentralTemp;
+                }
+                var maxTemp = Math.max(northTemp,eastTemp,westTemp,southTemp,centralTemp);
+                var minTemp = Math.min(northTemp,eastTemp,westTemp,southTemp,centralTemp);
+                //overallTemp = (northTemp+eastTemp+westTemp+southTemp+centralTemp)/5;
 
                 document.getElementById("NorthData").innerHTML = "North Sector: " + northTemp.toFixed(1) + " °C";
                 document.getElementById("EastData").innerHTML = "East Sector: " + eastTemp.toFixed(1) + " °C";
                 document.getElementById("WestData").innerHTML = "West Sector: " + westTemp.toFixed(1) + " °C";
                 document.getElementById("SouthData").innerHTML = "South Sector: " + southTemp.toFixed(1) + " °C";
                 document.getElementById("CentralData").innerHTML = "Central Sector: " + centralTemp.toFixed(1) + " °C";
-                document.getElementById("OverallWeather").innerHTML = "Overall Weather: " + overallTemp.toFixed(1) + " °C";
+                document.getElementById("OverallWeather").innerHTML = "Overall Weather: " + minTemp.toFixed(1) + "-" + maxTemp.toFixed(1) + " °C";
 
             })
             .catch(function (err) {

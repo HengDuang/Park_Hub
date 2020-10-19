@@ -7,23 +7,30 @@
     <title>jsonTest</title>
 </head>
 <body>
+
     <div id="CurrentTiming"></div>
     <div id="TimeStamp"></div>
     <div id="TimeStamp2"></div>
+    <div id="CurrentLocation"></div>
+
     <div id="OverallWeather"></div>
-    <div id="OverallPSI"></div>
+    <div id="OverallPSI"> </div>
+
     <div id="NorthData"></div>
     <div id="NorthPSI"></div>
+
     <div id="EastData"></div>
     <div id="EastPSI"></div>
+
     <div id="WestData"></div>
     <div id="WestPSI"></div>
+
     <div id="SouthData"></div>
     <div id="SouthPSI"></div>
+
     <div id="CentralData"></div>
     <div id="CentralPSI"></div>
-
-
+    
     <script>
         var myVar = setInterval(myTimer, 1000);
 
@@ -32,8 +39,29 @@
         document.getElementById("CurrentTiming").innerHTML = d.toLocaleTimeString();
         }
     </script>
+
+    <script>
+        var x = document.getElementById("CurrentLocation");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(showPosition);
+            } else { 
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+                
+        function showPosition(position) {
+            x.innerHTML="Latitude: " + position.coords.latitude + 
+            "<br>Longitude: " + position.coords.longitude;
+        }
+    </script>
+    <script>getLocation()</script>
+    
     <script src=regionalPSIReading.js></script>
     <script src=regionalWeatherReading.js></script>
+    <script src=busStops.js></script>
+    <script>busStops()</script>
     <script>regionalWeatherReading()</script>
     <script>regionalPSIReading()</script>
     <script> setInterval(regionalPSIReading, 600000);</script>
